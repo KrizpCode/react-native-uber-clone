@@ -8,11 +8,15 @@ import {
 	TouchableOpacity,
 	FlatList,
 	Image,
+	StatusBar,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
 import { selectTravelTimeInformation } from '../slices/navSlice';
+
+import 'intl';
+import 'intl/locale-data/jsonp/en';
 
 const data = [
 	{
@@ -43,7 +47,12 @@ const RideOptionsCard = () => {
 	const travelTimeInformation = useSelector(selectTravelTimeInformation);
 
 	return (
-		<SafeAreaView style={tw`bg-white flex-grow`}>
+		<SafeAreaView
+			style={[
+				tw`bg-white flex-grow`,
+				{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 },
+			]}
+		>
 			<View>
 				<TouchableOpacity
 					onPress={() => navigation.navigate('NavigateCard')}
